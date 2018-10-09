@@ -1,0 +1,235 @@
+<html>
+    <!-- linking necessary scripts-->
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head>
+ <!--add css for styling-->
+ <style>
+        
+table {
+    align-content: center
+    font-family: arial, sans-serif;
+    
+    border-collapse:collapse;
+    width: 50%;
+    font-size: 16px
+}
+table,td,
+tr {
+    border: 2px solid hsl(0, 0%, 2%);
+    text-align: center;
+    align-content: center;
+    padding: 8px;
+}
+tr {
+    
+    background-color: #f6f9fc;
+}
+h1 {
+text-align:center;
+font-family: consolas;
+border: 2px solid rgb(165, 189, 60);
+border-radius: 13px;
+border-style: groove;
+background-color:rgb(55, 224, 159);
+}
+body{
+background-color: black
+}
+.newbutton {
+  background: rgb(226, 21, 21); /* use your color here */
+}
+
+</style>
+
+
+<body>
+<!--add heading and logo-->
+<h1>Todo list</h1>
+<img src="image.png" align="margin-left" width=20% height=40%>
+<!--add list-->
+<table style="margin-left:auto; margin-right:auto" id="newtable" border="2"><tbody><tr class="rowclass"></tr></tbody></table>
+<ul id="newUL">
+</ul>
+<!--get input-->
+<div id="padzero" name="padzero" align="center" border:1 px solid black background-color="light gray">
+        <input type="text" id="myInput" placeholder="item">
+        <input type="text" id="myStatus" placeholder="note(optional)" margin: 0px 0px 0px -2%>
+       
+</div>
+<div align="center">
+<button type="button" onclick=newitem()>Add item</button>
+</div>
+</body>
+
+
+
+<script>
+//deletes item from list
+function deleteitem(btn){
+    console.log("enters delete");
+    console.log(btn)
+    ((btn.parentNode).parentNode).removeChild(btn.parentNode);
+    //btn.parentElement
+}
+//function for sorting
+//
+//it is a plugin that is commonly used
+jQuery(function($) {
+    $('table.sortable').sortable({
+        items: ".rowclass",
+        axis: ".y",
+        stop: function(event, ui) {
+            ui.d.effect('highlight');
+        }
+    });
+});
+/*$("#tabs").tabs();
+
+$("tbody").sortable({
+    items: "> tr:not(:first)",
+    appendTo: "parent",
+    helper: "clone"
+}).disableSelection();
+
+$("#tabs ul li a").droppable({
+    hoverClass: "drophover",
+    tolerance: "pointer",
+    drop: function(e, ui) {
+        var tabdiv = $(this).attr("href");
+        $(tabdiv + " table tr:last").after("<tr>" + ui.draggable.html() + "</tr>");
+        ui.draggable.remove();
+    }
+});*/
+
+//function for deleting element and checking
+//from : https://www.w3schools.com/howto/howto_js_todolist.asp
+//It was an elegant approach
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+var check = document.getElementsByClassName("check");
+var j;
+for (j = 0; j < check.length; j++) {
+    check[i].onclick = function() {
+    var chi = this.parentElement;
+    productList=chi.children;
+    
+        productList[2].innerText="Done";
+        
+    }
+    //close[i].onclick = deleteitem(this);
+  }
+//function to add new item
+function newitem() {
+    //create a table to display the list 
+    var celltable = document.getElementById("newtable"); 
+    var li = document.createElement("TR");
+    //get input values
+    var inputValue = document.getElementById("myInput").value;
+    var StatusValue = document.getElementById("myStatus").value;
+   //print due when no note is added
+   if(StatusValue=="")
+    {
+        StatusValue="Due";
+    }
+    i = 0;
+    ////generate the various components of the list
+    var t = document.createTextNode(inputValue);
+    var t1 = document.createTextNode(StatusValue); 
+    
+    
+    var check_button = document.createElement("input");
+    check_button.value= "";
+    //check_button.id= count++;
+    check_button.type = "checkbox";
+    //check.style.backgroundColor ="pink";
+    var delete_button = document.createElement("BUTTON");
+    delete_button.textContent = "delete";
+    delete_button.type="button";
+    //delete_button.setAttribute(align,center);
+    //delete_button.class="delete btn btn-custom";
+    delete_button.class="newbutton";
+    delete_button.style.backgroundColor="CFD8DC";
+    console.log(t);
+    console.log(t1);
+    var cell = document.createElement("td");
+    var cell1 = document.createElement("td"); 
+    //var cell2 = document.createElement("td");
+    cell1.style.backgroundColor ="#F57F17";
+    cell.style.backgroundColor="CFD8DC";
+    cell1.contentEditable = true ;
+    cell.contentEditable = true ; 
+    //add these components to the table cells 
+    cell.appendChild(t);
+    cell1.appendChild(t1);
+    //cell2.appendChild(delete_button);
+    li.appendChild(check_button);
+    
+    li.appendChild(cell);
+    li.appendChild(cell1);
+    //li.appendChild(cell2);
+    celltable.appendChild(li);
+    //paste to page
+    document.getElementById("newUL").appendChild(celltable);
+  
+  delete_button.className = "close";
+  check_button.className = "check";
+  
+  li.appendChild(delete_button);
+  //li.className=rowclass;
+ // li.setAttribute(class,rowclass)
+ //functions for delete and checking off
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+    //close[i].onclick = deleteitem(this);
+  }
+  
+  for (i = 0; i < check.length; i++) {
+    check[i].onclick = function() {
+      var chi = this.parentElement;
+      productList=chi.children;
+      //var flag = 1;
+      console.log(this.checked);
+    //changing status from due to done and vice versa    
+   if(this.checked==false)
+   {
+    productList[2].innerText="Due";
+    productList[2].style.backgroundColor = "#F57F17";
+   }
+   else{
+    productList[2].innerText="Done";
+    productList[2].style.backgroundColor = "#76FF03";
+    }
+    }
+    
+  }
+
+    
+    
+    document.getElementById("myInput").value = "";
+    document.getElementById("myStatus").value = ""; 
+    
+    
+  }
+
+
+
+</script>
+</body>
+</html>
