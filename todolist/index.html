@@ -70,7 +70,7 @@ background-color: black
 </body>
 
 
-
+<!--javascript-->
 <script>
 //deletes item from list
 function deleteitem(btn){
@@ -79,35 +79,7 @@ function deleteitem(btn){
     ((btn.parentNode).parentNode).removeChild(btn.parentNode);
     //btn.parentElement
 }
-//function for sorting
-//
-//it is a plugin that is commonly used
-jQuery(function($) {
-    $('table.sortable').sortable({
-        items: ".rowclass",
-        axis: ".y",
-        stop: function(event, ui) {
-            ui.d.effect('highlight');
-        }
-    });
-});
-/*$("#tabs").tabs();
 
-$("tbody").sortable({
-    items: "> tr:not(:first)",
-    appendTo: "parent",
-    helper: "clone"
-}).disableSelection();
-
-$("#tabs ul li a").droppable({
-    hoverClass: "drophover",
-    tolerance: "pointer",
-    drop: function(e, ui) {
-        var tabdiv = $(this).attr("href");
-        $(tabdiv + " table tr:last").after("<tr>" + ui.draggable.html() + "</tr>");
-        ui.draggable.remove();
-    }
-});*/
 
 //function for deleting element and checking
 //from : https://www.w3schools.com/howto/howto_js_todolist.asp
@@ -149,25 +121,18 @@ function newitem() {
     ////generate the various components of the list
     var t = document.createTextNode(inputValue);
     var t1 = document.createTextNode(StatusValue); 
-    
-    
     var check_button = document.createElement("input");
     check_button.value= "";
-    //check_button.id= count++;
     check_button.type = "checkbox";
-    //check.style.backgroundColor ="pink";
     var delete_button = document.createElement("BUTTON");
     delete_button.textContent = "delete";
     delete_button.type="button";
-    //delete_button.setAttribute(align,center);
-    //delete_button.class="delete btn btn-custom";
     delete_button.class="newbutton";
     delete_button.style.backgroundColor="CFD8DC";
     console.log(t);
     console.log(t1);
     var cell = document.createElement("td");
     var cell1 = document.createElement("td"); 
-    //var cell2 = document.createElement("td");
     cell1.style.backgroundColor ="#F57F17";
     cell.style.backgroundColor="CFD8DC";
     cell1.contentEditable = true ;
@@ -175,12 +140,9 @@ function newitem() {
     //add these components to the table cells 
     cell.appendChild(t);
     cell1.appendChild(t1);
-    //cell2.appendChild(delete_button);
-    li.appendChild(check_button);
-    
+    li.appendChild(check_button);    
     li.appendChild(cell);
     li.appendChild(cell1);
-    //li.appendChild(cell2);
     celltable.appendChild(li);
     //paste to page
     document.getElementById("newUL").appendChild(celltable);
@@ -189,8 +151,7 @@ function newitem() {
   check_button.className = "check";
   
   li.appendChild(delete_button);
-  //li.className=rowclass;
- // li.setAttribute(class,rowclass)
+
  //functions for delete and checking off
   for (i = 0; i < close.length; i++) {
     close[i].onclick = function() {
